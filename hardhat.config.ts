@@ -7,7 +7,7 @@ import { HardhatUserConfig } from "hardhat/config";
 const networks = {
   localhost: {
     url: 'http://localhost:8545',
-      accounts: [process.env.PRIVATE_KEY || '']
+    accounts: [process.env.PRIVATE_KEY || '']
     /*
       if there is no mnemonic, it will just use account 0 of the hardhat node to deploy
       (you can put in a mnemonic here to set the deployer locally)
@@ -28,7 +28,7 @@ const networks = {
 };
 
 const config: HardhatUserConfig = {
-  defaultNetwork: 'hardhat',
+  defaultNetwork: 'localhost',
   networks: networks,
   etherscan: {
     apiKey: process.env.POLYGONSCAN_API_KEY

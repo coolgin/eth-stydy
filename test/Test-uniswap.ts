@@ -17,16 +17,19 @@ describe("TEST-uniswap", function () {
   const TOKEN_IN = WBTC;
   const TOKEN_OUT = DAI;
   const AMOUNT_IN = 100000000;
+  const AMOUNT_OUT_MIN = 1;
 
+  let testUniswap2: TestUniswap
   let testUniswapAddr: string
   let ownerAddr: string
   let otherAccountAddr: string
-
 
   this.beforeEach(async () => {
     console.log("in beforeEach...");
 
     const {testUniswap, owner, otherAccount} = await loadFixture(deployTestUniswapFixture);
+
+    testUniswap2 = testUniswap
 
     testUniswapAddr = testUniswap.address
     ownerAddr = owner.address
@@ -61,6 +64,17 @@ describe("TEST-uniswap", function () {
 
       await tokenIn.approve(testUniswapAddr, AMOUNT_IN);
       //expect(await lock.unlockTime()).to.equal(unlockTime);
+
+      await testUniswap2.swap(
+          tokenIn.address,
+          tokenOut.address,
+          AMOUNT_IN,
+          AMOUNT_OUT_MIN,
+          ownerAddr,
+      );
+
+      console.log(`in ${AMOUNT_IN}`);
+      console.log(`out ${await tokenOut.balanceOf(ownerAddr)}`);
     });
   });
 });
