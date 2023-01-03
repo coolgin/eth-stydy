@@ -6,8 +6,13 @@ import { HardhatUserConfig } from "hardhat/config";
 
 const networks = {
   localhost: {
-    url: 'http://localhost:8545',
-    accounts: [process.env.PRIVATE_KEY || '']
+    url: 'http://127.0.0.1:8545',
+    accounts: [process.env.PRIVATE_KEY || ''],
+    forking: {
+      url: 'https://eth-mainnet.g.alchemy.com/v2/4Xp19JnP1z2aqbbmq92K3c9oMgflSwW_',
+    },
+    gas: 21000,
+    gasPrice: 8000000000,
     /*
       if there is no mnemonic, it will just use account 0 of the hardhat node to deploy
       (you can put in a mnemonic here to set the deployer locally)
