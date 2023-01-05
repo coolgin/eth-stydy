@@ -8,7 +8,7 @@ const networks = {
   localhost: {
     accounts: [process.env.PRIVATE_KEY || ''],
     forking: {
-      url: 'https://eth-mainnet.g.alchemy.com/v2/4Xp19JnP1z2aqbbmq92K3c9oMgflSwW_',
+      url: process.env.MAIN_RPC || '',
       blockNumber: 14390000
     },
     gas: 21000,
@@ -23,9 +23,9 @@ const networks = {
   },
   hardhat: {
     forking: {
-      url: 'https://eth-mainnet.g.alchemy.com/v2/4Xp19JnP1z2aqbbmq92K3c9oMgflSwW_',
-      blockNumber: 14390000
-    },
+      url: process.env.MAIN_RPC || '',
+      blockNumber: 12821000
+    }
   },
   mumbai: {
     url: process.env.TESTNET_RPC,
