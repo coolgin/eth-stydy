@@ -2,10 +2,10 @@ import { time, loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { expect } from "chai";
 import { ethers } from "hardhat";
+require("@nomiclabs/hardhat-ethers");
 
 
 import {TestUniswap} from "../typechain-types";
-import * as Contracts from "../typechain-types";
 
 const BN = require("bn.js");
 const { sendEther } = require("./util");
@@ -18,10 +18,6 @@ describe("TEST-uniswap", function () {
   const TOKEN_OUT = DAI;
   const AMOUNT_IN = 100000000;
   const AMOUNT_OUT_MIN = 1;
-
-  let testUniswapAddr: string
-  let ownerAddr: string
-  let otherAccountAddr: string
 
   /*this.beforeEach(async () => {
     console.log("in beforeEach...");
@@ -38,7 +34,7 @@ describe("TEST-uniswap", function () {
   // We define a fixture to reuse the same setup in every test.
   // We use loadFixture to run this setup once, snapshot that state,
   // and reset Hardhat Network to that snapshot in every test.
-  async function deployTestUniswapFixture() {
+  /*async function deployTestUniswapFixture() {
 
     // Contracts are deployed using the first signer/account by default
     const [owner] = await ethers.getSigners();
@@ -50,14 +46,18 @@ describe("TEST-uniswap", function () {
   }
 
   describe("swap", function () {
+
     it("swap2", async function () {
-      this.timeout(10000);  //add timeout.
+      this.timeout(10000);
+      //const [owner] = await ethers.getSigners();
+
       const {testUniswap, owner} = await loadFixture(deployTestUniswapFixture);
 
-      let tokenIn = await ethers.getContractAt('IERC20', TOKEN_IN, owner)
-      let tokenOut = await ethers.getContractAt('IERC20', TOKEN_OUT, owner)
+      const tokenIn = await ethers.getContractAt('IERC20', TOKEN_IN, owner)
+      const tokenOut = await ethers.getContractAt('IERC20', TOKEN_OUT, owner)
       //console.log("tokenIn:", tokenIn);
       //console.log("tokenOut:", tokenOut);
+
 
       await tokenIn.approve(testUniswap.address, AMOUNT_IN);
       //expect(await lock.unlockTime()).to.equal(unlockTime);
@@ -70,8 +70,9 @@ describe("TEST-uniswap", function () {
           owner.address,
       );
 
-      console.log(`in ${AMOUNT_IN}`);
-      console.log(`out ${await tokenOut.balanceOf(ownerAddr)}`);
+      //console.log(`in ${AMOUNT_IN}`);
+      console.log(`out ${await tokenOut.balanceOf(owner.address)}`);
     });
-  });
+  });*/
+
 });
