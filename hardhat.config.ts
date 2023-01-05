@@ -37,7 +37,9 @@ const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
   networks: networks,
   etherscan: {
-    apiKey: process.env.POLYGONSCAN_API_KEY
+    apiKey: {
+      mumbai: process.env.POLYGONSCAN_API_KEY || ''
+    }
   },
   mocha: {
     timeout: 100000,
