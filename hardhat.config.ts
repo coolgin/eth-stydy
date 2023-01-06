@@ -2,7 +2,8 @@ require("dotenv").config();
 import "@nomiclabs/hardhat-ethers";
 import "@nomicfoundation/hardhat-toolbox";
 import { HardhatUserConfig } from "hardhat/config";
-//import "hardhat-deploy";
+import "hardhat-deploy";
+require("hardhat-gas-reporter");
 
 const networks = {
   localhost: {
@@ -24,7 +25,6 @@ const networks = {
   hardhat: {
     forking: {
       url: process.env.MAIN_RPC || '',
-      blockNumber: 12821000
     }
   },
   mumbai: {
@@ -41,15 +41,43 @@ const config: HardhatUserConfig = {
       mumbai: process.env.POLYGONSCAN_API_KEY || ''
     }
   },
+  paths: {
+    sources: "./contracts", // 合约目录
+    tests: "./test",  // 测试文件目录
+    cache: "./cache", // 缓存目录，由hardhat自动生成
+    artifacts: "./artifacts" // 编译结果目录，由hardhat自动生成
+  },
+  gasReporter: {
+    currency: 'USD',
+    gasPrice: 100,
+    enabled: process.env.REPORT_GAS ? true : false,
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY || '',
+    maxMethodDiff: 10,
+  },
+  typechain: {
+    outDir: 'typechain',
+    target: 'ethers-v5',
+  },
   mocha: {
     timeout: 100000,
+  },
+  namedAccounts: {
+    deployer: 0,
   },
   /*namedAccounts: {
     deployer: {
       default: 0,
     },
   },*/
-  solidity: "0.8.17",
+  solidity: {
+    version: "0.8.17",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 1000,
+      },
+    },
+  },
 };
 
 export default config;
